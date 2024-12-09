@@ -2,6 +2,7 @@
 using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Context;
 using MyProject.DataAccess.CQRS.Products.Queries.Request;
+using MyProject.DataAccess.CQRS.Products.Queries.Response;
 using MyProject.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,31 @@ namespace MyProject.DataAccess.Concrate
 
         public IQueryable<Product> GetFilteredProduct(GetFilteredProductQueryRequest filtered)
         {
-            return _context.Products.Where(x => x.Size == filtered.size);
+
+            var query = _context.Products.AsQueryable();
+
+            if (filtered.Color != null) {
+
+                query=  query.Where(x => x.Color == filtered.Color);
+            }
+
+            if (filtered.Price != null) { 
+                query=  query.Where(x=> x.Price == filtered.Price);   
+            }
+
+            if (filtered.Size != null) { 
+                query=  query.Where(x=>x.Size == filtered.Size); 
+
+            }
+
+            if (filtered.Category != null) { 
+                 query= query.Include(x => x.Category).Where(x=> x.Category.CategoryName == filtered.Category);
+            }
+            
+           return query;
+
+            
+        
         }
 
         public IQueryable<Product> GetNewArrivalProducts()

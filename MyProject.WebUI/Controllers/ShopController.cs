@@ -108,14 +108,14 @@ namespace MyProject.WebUI.Controllers
 
         }
 
-        /*
+        
         [HttpGet("GetFilteredProducts")]
-        public async Task<IActionResult> GetFilteredProducts(string category, string size, string color, string price)
+        public async Task<IActionResult> GetFilteredProducts(string? category, string? size, string? color, long? price)
         {
 
             var client = _httpClientFactory.CreateClient("ApiService1");
            
-            var response = await client.GetAsync(client.BaseAddress + $"/Product/GetFiltered/filter?" +
+            var response = await client.GetAsync(client.BaseAddress + "/Product/GetFiltered?" +
             $"category={category}&size={size}&color={color}&price={price}");
 
             if (!response.IsSuccessStatusCode)
@@ -126,7 +126,7 @@ namespace MyProject.WebUI.Controllers
             var data = await response.Content.ReadFromJsonAsync<dynamic>();
             return Json(data);
         }
-        */
+        
 
 
 
