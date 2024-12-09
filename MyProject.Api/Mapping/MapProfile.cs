@@ -26,6 +26,7 @@ namespace MyProject.Api.Mapping
              CreateMap<Product, GetProductDetailQueryResponse>().ReverseMap();
              CreateMap<Product, GetNewProductsQueryResponse>().ReverseMap();
              CreateMap<Product, GetFilteredProductQueryResponse>().ReverseMap();
+            
            
 
 

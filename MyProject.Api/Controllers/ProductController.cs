@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyProject.DataAccess.CQRS.Products.Queries.Request;
+using MyProject.DTO.DTOs.ProductDTOs;
 
 
 namespace MyProject.Api.Controllers
@@ -65,15 +66,20 @@ namespace MyProject.Api.Controllers
 
 
 
-
+        
         [HttpGet("GetFiltered")]
         
-        public async Task<IActionResult> GetFilteredProduct([FromQuery] string category, [FromQuery] string size, [FromQuery] string color, [FromQuery] string price)
+        public async Task<IActionResult> GetFilteredProduct([FromQuery] string? category , [FromQuery] string? color, [FromQuery] string? size , [FromQuery] long? price)
         {
 
+            var result = await _mediator.Send(new GetFilteredProductQueryRequest
+            { 
+               Category = category ,
+               Color = color ,
+               Size = size ,
+               Price = price
 
-           
-            var result = await _mediator.Send(new GetFilteredProductQueryRequest { category = category, color = color, price = price, size = size } );
+            } );
             return Ok(result); 
            
         }

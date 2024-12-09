@@ -26,6 +26,7 @@ namespace MyProject.DataAccess.CQRS.Products.Handlers.QueryHandlers
 
         public async Task<IList<GetFilteredProductQueryResponse>> Handle(GetFilteredProductQueryRequest request, CancellationToken cancellationToken)
         {
+            
             var value= _productRepository.GetFilteredProduct(request);
             var value2 = await value.ToListAsync();
             var value3 = _mapper.Map<IList<GetFilteredProductQueryResponse>>(value2);
