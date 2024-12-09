@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using MyProject.DataAccess.Abstract;
+
 using MyProject.DataAccess.CQRS.Products.Queries.Response;
 using MyProject.DTO.DTOs.ProductDTOs;
 using System;

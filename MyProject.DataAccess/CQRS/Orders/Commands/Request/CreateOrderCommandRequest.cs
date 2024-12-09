@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using MyProject.DataAccess.Abstract;
+
 using MyProject.Entity.Entities;
 
 

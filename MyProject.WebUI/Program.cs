@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using MyProject.DataAccess.Abstract;
-using MyProject.DataAccess.Concrate;
+using MyProject.DataAccess.Repositories.Abstract;
+using MyProject.DataAccess.Repositories.Concrate;
 using MyProject.DataAccess.Context;
 using MyProject.WebUI.Mapping;
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
-using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.CQRS.Orders.Commands.Request;
+using MyProject.DataAccess.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.CQRS.Categories.Queries.Request;
 using MyProject.DataAccess.CQRS.Categories.Queries.Response;
+using MyProject.DataAccess.Repositories.Abstract;
 using MyProject.DTO.DTOs.CategoryDTOs;
 using System;
 using System.Collections.Generic;
