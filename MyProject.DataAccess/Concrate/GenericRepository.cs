@@ -27,26 +27,15 @@ namespace MyProject.DataAccess.Concrate
 
         protected DbSet<T> entity => _myProjectContext.Set<T>();
 
-
-        public async Task<bool> AddAsync(T entity)
-        {
-            await this.entity.AddAsync(entity);
-            _myProjectContext.SaveChanges();
-            return true;
-        }
-
-        public async Task<bool> AddRangeAsync(List<T> entities)
-        {
-            await this.entity.AddRangeAsync(entities);      
-            return true;
-        }
-
         
-
+     
+        
         public async Task<IQueryable<T?>> GetAllAsync()
         {
             return entity.AsNoTracking();
         }
+
+
 
         public async Task<T?> GetByIdAsync(Guid id)
         {
@@ -54,26 +43,58 @@ namespace MyProject.DataAccess.Concrate
             return result;
         }
 
+
+
+        public async Task<T?> FindByIdAsync(Guid id)
+        {
+
+            return await entity.FindAsync(id);
+
+        }
+
+
+
         public IQueryable<T> GetWhere(Expression<Func<T, bool>> predicate)
         {
             return this.entity.AsNoTracking().Where(predicate); ;
         }
-    
 
-        public async Task<bool> DeleteAsync(Guid id)
+
+
+        public async Task<bool> AddAsync(T entity)
+        {
+            EntityEntry<T> entityEntry = await this.entity.AddAsync(entity);
+            _myProjectContext.SaveChanges();
+            return entityEntry.State == EntityState.Added;
+        }
+
+
+
+        public void AddRangeAsync(List<T> entities)
+        {
+            this.entity.AddRangeAsync(entities);
+
+
+        }
+
+
+        public bool Delete(Guid id)
         {
             try
             {
-                var value = await GetByIdAsync(id);
+                var value= this.entity.FirstOrDefault(x => x.Id == id);
+               
                 if (value == null)
                 {
                     return false;
                 }
                 else
                 {
-                    this.entity.Remove(value);
-                    await _myProjectContext.SaveChangesAsync();
-                    return true;
+                    EntityEntry<T> entityEntry = this.entity.Remove(value);
+                    _myProjectContext.SaveChangesAsync();
+                    return entityEntry.State== EntityState.Deleted;
+                    
+                    
                 }  
 
             }
@@ -84,19 +105,18 @@ namespace MyProject.DataAccess.Concrate
             
         }
 
-        public async Task<bool> UpdateAsync(T entity)
+        public bool Update(T entity)
         {
             
             EntityEntry entityEntry = this.entity.Update(entity);
-            await _myProjectContext.SaveChangesAsync();
+            _myProjectContext.SaveChangesAsync();
             return entityEntry.State == EntityState.Modified;
+          
         }
 
-        public async Task<T?> FindByIdAsync(Guid id)
-        {
-            
-            return  await entity.FindAsync(id);
-           
-        }
+
+
+        
+     
     }
 }

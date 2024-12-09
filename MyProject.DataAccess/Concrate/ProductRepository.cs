@@ -22,6 +22,7 @@ namespace MyProject.DataAccess.Concrate
             _context = myProjectContext;
         }
 
+       
         public IQueryable<Product> GetFilteredProduct(GetFilteredProductQueryRequest filtered)
         {
 
@@ -54,6 +55,7 @@ namespace MyProject.DataAccess.Concrate
         public IQueryable<Product> GetNewArrivalProducts()
         {
             var value = _context.Products.OrderByDescending(x => x.CreateDate).Take(8);
+           
             return value;
         }
 
@@ -65,17 +67,7 @@ namespace MyProject.DataAccess.Concrate
             return _context.Products.Where(x => x.CategoryId == categoryId);
         }
 
-        /*
-        public async Task<Product?> GetProductIncludeCategory(Guid productId)
-        {
-            return await _context.Products
-                .Include(x => x.Category.CategoryName)
-                .FirstOrDefaultAsync(x=> x.Id == productId);
-            
-        }
-
-        */
-
+       
 
 
     }

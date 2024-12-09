@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Concrate;
 using MyProject.DataAccess.Context;
+using MyProject.DataAccess.UnıtOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace MyProject.DataAccess
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
