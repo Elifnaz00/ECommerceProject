@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyProject.DataAccess.Repositories.Abstract
+namespace MyProject.DataAccess.Abstract
 {
     public interface IProductRepository : IBaseEntityRepository<Product>
     {

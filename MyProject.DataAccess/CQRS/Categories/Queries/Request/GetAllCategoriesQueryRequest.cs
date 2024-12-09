@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
+using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Context;
 using MyProject.DataAccess.CQRS.Categories.Queries.Response;
 using MyProject.DTO.DTOs.CategoryDTOs;

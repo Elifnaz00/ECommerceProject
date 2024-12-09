@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using MyProject.DataAccess.Repositories.Abstract;
+using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.CQRS.Products.Queries.Response;
 using MyProject.DTO.DTOs.ProductDTOs;
 using System;

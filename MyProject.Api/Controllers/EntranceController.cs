@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyProject.DataAccess.Repositories.Abstract;
+using MyProject.DataAccess.Abstract;
 using MyProject.DTO.DTOs.EntranceDTOs;
 using MyProject.Entity.Entities;
 
@@ -99,7 +99,7 @@ namespace MyProject.Api.Controllers
             if (result != null && id == updateEntranceDTO.Id)
             {
                 var updateDto = _mapper.Map<Entrance>(updateEntranceDTO);
-                _entranceRepository.Update(updateDto);
+                await _entranceRepository.UpdateAsync(updateDto);
 
                 return Ok();
                 //CreatedAtRoute(nameof(GetEntrance), new { Id = id }, updateDto);
@@ -115,7 +115,7 @@ namespace MyProject.Api.Controllers
         {
             if (await _entranceRepository.GetByIdAsync(id) != null)
             {
-                await _entranceRepository.DeleteByIdAsync(id);
+                await _entranceRepository.DeleteAsync(id);
                 return NoContent();
             }
 

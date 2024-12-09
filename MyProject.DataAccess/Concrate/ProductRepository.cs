@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Context;
 using MyProject.DataAccess.CQRS.Products.Queries.Request;
 using MyProject.DataAccess.CQRS.Products.Queries.Response;
-using MyProject.DataAccess.Repositories.Abstract;
-using MyProject.DataAccess.UnitOfWorks;
 using MyProject.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,15 +11,15 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyProject.DataAccess.Repositories.Concrate
+namespace MyProject.DataAccess.Concrate
 {
     public class ProductRepository : GenericRepository<Product>, IProductRepository
-    {
+    { 
         private readonly MyProjectContext _context;
-       
-
-        public ProductRepository(MyProjectContext myProjectContext, IUnitOfWork unıtOfWork) : base(myProjectContext, unıtOfWork)
+        
+        public ProductRepository(MyProjectContext myProjectContext) : base(myProjectContext)
         {
+            _context = myProjectContext;
         }
 
         public IQueryable<Product> GetFilteredProduct(GetFilteredProductQueryRequest filtered)
@@ -28,32 +27,28 @@ namespace MyProject.DataAccess.Repositories.Concrate
 
             var query = _context.Products.AsQueryable();
 
-            if (filtered.Color != null)
-            {
+            if (filtered.Color != null) {
 
-                query = query.Where(x => x.Color == filtered.Color);
+                query=  query.Where(x => x.Color == filtered.Color);
             }
 
-            if (filtered.Price != null)
-            {
-                query = query.Where(x => x.Price == filtered.Price);
+            if (filtered.Price != null) { 
+                query=  query.Where(x=> x.Price == filtered.Price);   
             }
 
-            if (filtered.Size != null)
-            {
-                query = query.Where(x => x.Size == filtered.Size);
+            if (filtered.Size != null) { 
+                query=  query.Where(x=>x.Size == filtered.Size); 
 
             }
 
-            if (filtered.Category != null)
-            {
-                query = query.Include(x => x.Category).Where(x => x.Category.CategoryName == filtered.Category);
+            if (filtered.Category != null) { 
+                 query= query.Include(x => x.Category).Where(x=> x.Category.CategoryName == filtered.Category);
             }
+            
+           return query;
 
-            return query;
-
-
-
+            
+        
         }
 
         public IQueryable<Product> GetNewArrivalProducts()
@@ -66,11 +61,20 @@ namespace MyProject.DataAccess.Repositories.Concrate
 
         public IQueryable<Product> GetProductByCategory(Guid categoryId)
         {
-
+          
             return _context.Products.Where(x => x.CategoryId == categoryId);
         }
 
+        /*
+        public async Task<Product?> GetProductIncludeCategory(Guid productId)
+        {
+            return await _context.Products
+                .Include(x => x.Category.CategoryName)
+                .FirstOrDefaultAsync(x=> x.Id == productId);
+            
+        }
 
+        */
 
 
 

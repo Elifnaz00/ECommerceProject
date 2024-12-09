@@ -6,9 +6,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyProject.DataAccess.Repositories.Abstract
+namespace MyProject.DataAccess.Abstract
 {
-    public interface IBaseEntityRepository<T> where T : BaseEntity
+    public interface IBaseEntityRepository<T> where T: BaseEntity
     {
 
         Task<IQueryable<T?>> GetAllAsync();
@@ -18,14 +18,12 @@ namespace MyProject.DataAccess.Repositories.Abstract
 
         Task<T?> GetByIdAsync(Guid id);
 
-        Task<bool> AddAsync(T entity);
-        Task AddRangeAsync(List<T> entities);
-        bool Update(T entity);
-        Task<bool> DeleteByIdAsync(Guid id);
+        Task<bool> AddAsync(T entity);  
+        Task<bool> AddRangeAsync(List<T> entities);
+        Task<bool> UpdateAsync(T entity);
+        Task<bool> DeleteAsync(Guid id);
 
-        bool Delete(T entity);
-
-
-
+        
+       
     }
 }

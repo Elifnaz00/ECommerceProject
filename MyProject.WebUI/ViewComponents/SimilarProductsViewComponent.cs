@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyProject.DataAccess.Repositories.Abstract;
+using MyProject.DataAccess.Abstract;
 using MyProject.WebUI.Models.ProductModel;
 using System.Net.Http;
 
