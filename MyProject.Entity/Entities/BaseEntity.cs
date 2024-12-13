@@ -11,18 +11,20 @@ namespace MyProject.Entity.Entities
     {
         
         public Guid Id { get; set; } 
-        public DateTime CreateDate { get; set; }  
+        public DateTime CreateDate { get; set; } 
 
         public bool IsDeleted { get; set; } = false;
 
     
 
-        /*
+       
         public BaseEntity()
         {
             Id = Guid.NewGuid();
             CreateDate = DateTime.Now;
         } 
-       */
+       
+        
+       
     }
 }

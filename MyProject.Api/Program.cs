@@ -11,6 +11,7 @@ using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Concrate;
 using MyProject.DataAccess.Context;
 using MyProject.DataAccess.CQRS.Categories.Handlers.QueryHandlers;
+using MyProject.DataAccess.CQRS.Contacts.Handlers;
 using MyProject.DataAccess.CQRS.Orders.Handlers;
 using MyProject.DataAccess.CQRS.Products.Handlers.QueryHandlers;
 using Swashbuckle.Swagger;
@@ -39,6 +40,7 @@ builder.Services.AddMediatR(typeof(GetProductDetailQueryRequestHandler).Assembly
 builder.Services.AddMediatR(typeof(CreateOrderCommandRequestHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetNewProductsQueryHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetFilteredProductQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(ContactUsCommandHandler).Assembly);
 
 builder.Services.AddAutoMapper(typeof(MapProfile));
 

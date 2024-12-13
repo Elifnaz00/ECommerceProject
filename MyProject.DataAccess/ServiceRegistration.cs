@@ -21,6 +21,8 @@ namespace MyProject.DataAccess
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IContactRepository, ContactRepository>();
+            services.AddScoped<IAboutRepository, AboutRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

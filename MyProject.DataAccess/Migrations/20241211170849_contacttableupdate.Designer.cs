@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyProject.DataAccess.Context;
 
@@ -11,9 +12,11 @@ using MyProject.DataAccess.Context;
 namespace MyProject.DataAccess.Migrations
 {
     [DbContext(typeof(MyProjectContext))]
-    partial class MyProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20241211170849_contacttableupdate")]
+    partial class contacttableupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +75,8 @@ namespace MyProject.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ContentMessage")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -81,13 +85,15 @@ namespace MyProject.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("SenderMail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SenderName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subject")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -273,9 +279,10 @@ namespace MyProject.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AboutContent1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("AboutImage")
+                    b.Property<string>("AboutDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AboutTitle")

@@ -64,8 +64,10 @@ namespace MyProject.DataAccess.Concrate
         public async Task<bool> AddAsync(T entity)
         {
             EntityEntry<T> entityEntry = await this.entity.AddAsync(entity);
-            _myProjectContext.SaveChanges();
-            return entityEntry.State == EntityState.Added;
+           
+            await _myProjectContext.SaveChangesAsync();
+            return entityEntry.State == EntityState.Unchanged;
+          
         }
 
 

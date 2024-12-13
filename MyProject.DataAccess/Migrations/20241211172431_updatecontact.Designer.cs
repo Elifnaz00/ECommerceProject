@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyProject.DataAccess.Context;
 
@@ -11,9 +12,11 @@ using MyProject.DataAccess.Context;
 namespace MyProject.DataAccess.Migrations
 {
     [DbContext(typeof(MyProjectContext))]
-    partial class MyProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20241211172431_updatecontact")]
+    partial class updatecontact
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,9 +276,10 @@ namespace MyProject.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AboutContent1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("AboutImage")
+                    b.Property<string>("AboutDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AboutTitle")
