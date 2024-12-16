@@ -61,11 +61,7 @@ namespace MyProject.WebUI.Controllers
         public async Task<IActionResult> CreateEntrance(CreateEntranceViewModel createEntranceViewModel)
         {
             var client = _httpClientFactory.CreateClient("ApiService1");
-            /*
-            if (createEntranceViewModel.IsChecked == true) 
-            {
-                HttpResponseMessage response= await sharedClient.DeleteAsync("https://localhost:7177/api/entrance/3fa85f64-5717-4562-b3fc-2c963f66afa5");
-            } */
+           
 
             var entrance= _mapper.Map<Entrance>(createEntranceViewModel);
             /*Entrance entrance = new Entrance()
@@ -115,6 +111,12 @@ namespace MyProject.WebUI.Controllers
 
         public async Task<IActionResult> DeleteEntrance(Guid id)  
         {
+
+             /*
+            if (createEntranceViewModel.IsChecked == true) 
+            {
+                HttpResponseMessage response= await sharedClient.DeleteAsync("https://localhost:7177/api/entrance/3fa85f64-5717-4562-b3fc-2c963f66afa5");
+            } */
             var client = _httpClientFactory.CreateClient("ApiService1");
             await client.DeleteAsync(client.BaseAddress + $"/entrance/{id}");
             

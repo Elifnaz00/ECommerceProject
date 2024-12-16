@@ -5,7 +5,7 @@ using MyProject.DTO.DTOs.ProductDTOs;
 using MyProject.Entity.Entities;
 
 using MyProject.WebUI.Models.ProductModel;
-using PagedList;
+
 using System.Collections.Generic;
 using System.Net.Http;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
