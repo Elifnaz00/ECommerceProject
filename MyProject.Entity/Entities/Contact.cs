@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,14 @@ namespace MyProject.Entity.Entities
     public class Contact: BaseEntity
     {
        
-        public string? Location { get; set; }
-        public string? OpenHours { get; set; }
-        public string? TelephoneNumber { get; set; }
-        public string? Email { get; set; }
+        public string? ContentMessage{ get; set; }
+        public string? SenderName { get; set; }
+
+        
+        public string? SenderMail { get; set; }
+
+        
+        public string? Subject { get; set; }
         
     }
 }

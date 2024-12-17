@@ -99,7 +99,7 @@ namespace MyProject.Api.Controllers
             if (result != null && id == updateEntranceDTO.Id)
             {
                 var updateDto = _mapper.Map<Entrance>(updateEntranceDTO);
-                await _entranceRepository.UpdateAsync(updateDto);
+                _entranceRepository.Update(updateDto);
 
                 return Ok();
                 //CreatedAtRoute(nameof(GetEntrance), new { Id = id }, updateDto);
@@ -115,7 +115,7 @@ namespace MyProject.Api.Controllers
         {
             if (await _entranceRepository.GetByIdAsync(id) != null)
             {
-                await _entranceRepository.DeleteAsync(id);
+                _entranceRepository.Delete(id);
                 return NoContent();
             }
 

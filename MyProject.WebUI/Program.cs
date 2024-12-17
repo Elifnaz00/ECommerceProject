@@ -1,8 +1,15 @@
+using FluentValidation;
+
 using Microsoft.EntityFrameworkCore;
+
 using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Concrate;
 using MyProject.DataAccess.Context;
 using MyProject.WebUI.Mapping;
+using MyProject.WebUI.Models.ContactModel;
+using MyProject.WebUI.Validations;
+using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +22,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MyProjectContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
 
-
+builder.Services.AddScoped<IValidator<ContactUsViewModel>, ContactUsViewModelValidator>();
 
 
 // "ApiService1" adýnda bir named HttpClient örneði

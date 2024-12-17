@@ -11,9 +11,10 @@ namespace MyProject.Entity.Entities
     {
         
         public string? AboutTitle { get; set; }
-        public string? AboutDescription{ get; set; } 
+      
+        public string? AboutImage { get; set; }
+       
 
-        [StringLength(500)]
         public string? AboutContent1 { get; set; } 
         
       

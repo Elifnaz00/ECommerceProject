@@ -71,22 +71,22 @@ namespace MyProject.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ContentMessage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("SenderMail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OpenHours")
+                    b.Property<string>("SenderName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TelephoneNumber")
+                    b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -273,10 +273,9 @@ namespace MyProject.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AboutContent1")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AboutDescription")
+                    b.Property<string>("AboutImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AboutTitle")

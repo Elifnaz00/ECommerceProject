@@ -10,19 +10,21 @@ namespace MyProject.Entity.Entities
     public abstract class BaseEntity
     {
         
-        public Guid Id { get; set; } 
-        public DateTime CreateDate { get; set; }  
+        public Guid Id { get; init; } 
+        public DateTime CreateDate { get; set; } 
 
         public bool IsDeleted { get; set; } = false;
 
     
 
-        /*
+       
         public BaseEntity()
         {
             Id = Guid.NewGuid();
             CreateDate = DateTime.Now;
         } 
-       */
+       
+        
+       
     }
 }
