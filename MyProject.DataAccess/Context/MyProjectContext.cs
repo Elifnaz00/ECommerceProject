@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MyProject.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyProject.DataAccess.Context
 {
-    public class MyProjectContext : DbContext
+    public class MyProjectContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public MyProjectContext(DbContextOptions<MyProjectContext> options)
             : base(options)
@@ -36,20 +38,16 @@ namespace MyProject.DataAccess.Context
 
        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Varsayılan Identity yapılandırmalarını uygula
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Category>()
                 .HasMany(x => x.Products)
                 .WithOne(x => x.Category)
                 .HasForeignKey(x => x.CategoryId);
 
-            /*
+            
 
-            modelBuilder.Entity<BaseEntity>(entity =>
-            {
-                entity.Property(e => e.CreateDate)
-                .HasColumnType("date");
-            }
-
-            ); */
         }
 
     }

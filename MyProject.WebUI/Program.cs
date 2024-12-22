@@ -1,10 +1,11 @@
 using FluentValidation;
-
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Concrate;
 using MyProject.DataAccess.Context;
+using MyProject.Entity.Entities;
 using MyProject.WebUI.Mapping;
 using MyProject.WebUI.Models.ContactModel;
 using MyProject.WebUI.Validations;
@@ -22,6 +23,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MyProjectContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
 
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<MyProjectContext>()
+    .AddDefaultTokenProviders();
 builder.Services.AddScoped<IValidator<ContactUsViewModel>, ContactUsViewModelValidator>();
 
 
