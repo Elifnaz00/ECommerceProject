@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -10,6 +11,7 @@ using MyProject.DataAccess.CQRS.Contacts.Handlers;
 using MyProject.DataAccess.CQRS.Orders.Handlers;
 using MyProject.DataAccess.CQRS.Products.Handlers.QueryHandlers;
 using MyProject.DataAccess.UnıtOfWorks;
+using MyProject.Entity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,7 @@ namespace MyProject.Bussines
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IAboutRepository, AboutRepository>();
+              
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 

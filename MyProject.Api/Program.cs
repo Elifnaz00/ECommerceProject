@@ -3,6 +3,8 @@ using Castle.Components.DictionaryAdapter.Xml;
 using Castle.Core.Logging;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +21,9 @@ using MyProject.DataAccess.CQRS.Contacts.Commands.Request;
 using MyProject.DataAccess.CQRS.Contacts.Handlers;
 using MyProject.DataAccess.CQRS.Orders.Handlers;
 using MyProject.DataAccess.CQRS.Products.Handlers.QueryHandlers;
+using MyProject.Entity.Entities;
 using Swashbuckle.Swagger;
+using System;
 using System.Reflection;
 using static MyProject.DataAccess.CQRS.Orders.Commands.Request.CreateOrderCommandRequest;
 
@@ -34,6 +38,19 @@ services.AddSwaggerGen();
 
 builder.Services.AddDbContext<MyProjectContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<MyProjectContext>()
+    .AddDefaultTokenProviders();
+
+/*
+builder.Services.AddIdentityApiEndpoints<AppUser>()
+    .AddEntityFrameworkStores<MyProjectContext>();
+
+*/
+
+builder.Services.AddAuthorizationBuilder();
+
 
 
 
@@ -57,6 +74,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+//app.MapIdentityApi<AppUser>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -66,6 +84,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 
 app.UseAuthorization();
 
