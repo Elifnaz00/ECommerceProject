@@ -1,9 +1,15 @@
-﻿using System.ComponentModel;
+﻿using MediatR;
+using MyProject.DataAccess.CQRS.AppUsers.Commands.Response;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace MyProject.WebUI.Models.UserModel
+namespace MyProject.DataAccess.CQRS.AppUsers.Commands.Request
 {
-    public class UserRegisterViewModeL
+    public class CreateUserCommandRequest: IRequest<CreateUserCommandResponse>
     {
         [Display(Name = "Ad-Soyad")]
         public string? NameSurname { get; set; }
@@ -19,7 +25,7 @@ namespace MyProject.WebUI.Models.UserModel
         [EmailAddress(ErrorMessage = "Geçerli bir e-posta adresi giriniz.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage ="Şifre Gereklidir.")]
+
         [Display(Name = "Şifre")]
         public string Password { get; set; }
 

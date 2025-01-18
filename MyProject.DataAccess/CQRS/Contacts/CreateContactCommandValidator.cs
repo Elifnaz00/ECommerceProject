@@ -13,7 +13,8 @@ namespace MyProject.DataAccess.CQRS.Contacts
         public CreateContactCommandValidator() 
         {
             RuleFor(p => p.ContentMessage)
-                .NotNull().WithMessage("Lütfen Mesaj alanını boş bırakmayınız.")
+                
+                .NotNull().NotEmpty().WithMessage("Lütfen Mesaj alanını boş bırakmayınız.")
                 .MaximumLength(300).WithMessage("Mesaj içeriği en fazla 300 karakter olabilir");
 
             RuleFor(p => p.SenderMail)
@@ -21,7 +22,9 @@ namespace MyProject.DataAccess.CQRS.Contacts
                 .EmailAddress().WithMessage("Geçerli bir mail adresi giriniz.");
 
             RuleFor(p => p.Subject)
-                .MinimumLength(200).WithMessage("Konu içeriği en fazla 200 karakter olabilir");
+                .MaximumLength(200).WithMessage("Konu içeriği en fazla 200 karakter olabilir");
+
+            
         }
     }
 }

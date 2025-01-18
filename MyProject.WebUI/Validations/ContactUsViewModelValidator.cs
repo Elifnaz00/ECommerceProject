@@ -12,6 +12,8 @@ namespace MyProject.WebUI.Validations
     {
         public ContactUsViewModelValidator() 
         {
+            
+
             RuleFor(p => p.ContentMessage)
               .NotNull().WithMessage("Lütfen Mesaj alanını boş bırakmayınız.")
               .MaximumLength(300).WithMessage("Mesaj içeriği en fazla 300 karakter olabilir");

@@ -1,31 +1,17 @@
-using Autofac.Core;
-using Castle.Components.DictionaryAdapter.Xml;
-using Castle.Core.Logging;
-using FluentValidation;
-using MediatR;
+
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using MyProject.Api;
+
 
 using MyProject.Bussines;
-using MyProject.DataAccess;
-using MyProject.DataAccess.Abstract;
-using MyProject.DataAccess.Concrate;
+using MyProject.Bussines.Customization.Identity;
 using MyProject.DataAccess.Context;
-using MyProject.DataAccess.CQRS.Categories.Handlers.QueryHandlers;
-using MyProject.DataAccess.CQRS.Contacts.Commands.Request;
-using MyProject.DataAccess.CQRS.Contacts.Handlers;
-using MyProject.DataAccess.CQRS.Orders.Handlers;
-using MyProject.DataAccess.CQRS.Products.Handlers.QueryHandlers;
+
 using MyProject.Entity.Entities;
-using Swashbuckle.Swagger;
-using System;
 using System.Reflection;
-using static MyProject.DataAccess.CQRS.Orders.Commands.Request.CreateOrderCommandRequest;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -39,9 +25,23 @@ services.AddSwaggerGen();
 builder.Services.AddDbContext<MyProjectContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
 
+/*
 builder.Services.AddIdentity<AppUser, AppRole>()
     .AddEntityFrameworkStores<MyProjectContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders(); */
+
+builder.Services.AddIdentity<AppUser, AppRole>(
+    options =>
+    {
+        // Password settings
+        options.Password.RequireDigit = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = true;
+
+        // Other settings can be configured here
+    }).AddEntityFrameworkStores<MyProjectContext>()
+    .AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrorDescriber>();
 
 /*
 builder.Services.AddIdentityApiEndpoints<AppUser>()
@@ -62,9 +62,12 @@ builder.Services.AddControllers();
 
 
 
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-//builder.Services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+
 
 
 

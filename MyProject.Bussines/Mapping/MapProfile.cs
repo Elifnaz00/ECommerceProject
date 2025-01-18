@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MyProject.DataAccess.CQRS.Abouts.Queries.Response;
+using MyProject.DataAccess.CQRS.AppUsers.Commands.Request;
 using MyProject.DataAccess.CQRS.Categories.Queries.Response;
 using MyProject.DataAccess.CQRS.Contacts.Commands.Request;
 using MyProject.DataAccess.CQRS.Orders.Commands.Request;
@@ -32,6 +33,7 @@ namespace MyProject.Bussines.Mapping
             CreateMap<Product, GetFilteredProductQueryResponse>().ReverseMap();
             CreateMap<WhyUs, GetAboutQueryResponse>().ReverseMap();
             CreateMap<Contact, ContactUsCommandRequest>().ReverseMap();
+            CreateMap<AppUser, CreateUserCommandRequest>().ReverseMap();
 
 
 
