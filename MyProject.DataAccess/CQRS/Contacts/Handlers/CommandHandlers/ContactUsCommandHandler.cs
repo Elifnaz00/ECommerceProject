@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyProject.DataAccess.CQRS.Contacts.Handlers
+namespace MyProject.DataAccess.CQRS.Contacts.Handlers.CommandHandlers
 {
     public class ContactUsCommandHandler : IRequestHandler<ContactUsCommandRequest, bool>
     {
@@ -20,12 +20,12 @@ namespace MyProject.DataAccess.CQRS.Contacts.Handlers
         public ContactUsCommandHandler(IContactRepository contactRepository, IMapper mapper)
         {
             _contactRepository = contactRepository;
-             _mapper = mapper;
+            _mapper = mapper;
         }
 
         public async Task<bool> Handle(ContactUsCommandRequest request, CancellationToken cancellationToken)
         {
-            var value= _mapper.Map<Contact>(request);
+            var value = _mapper.Map<Contact>(request);
             var response = await _contactRepository.AddAsync(value);
             return response;
         }

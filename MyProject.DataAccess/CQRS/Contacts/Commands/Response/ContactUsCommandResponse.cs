@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyProject.DataAccess.CQRS.Contacts.Commands.Request
+namespace MyProject.DataAccess.CQRS.Contacts.Commands.Response
 {
     public class ContactUsCommandResponse
     {

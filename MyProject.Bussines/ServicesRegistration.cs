@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,6 +9,8 @@ using MyProject.Bussines.Mapping;
 using MyProject.DataAccess.Abstract;
 using MyProject.DataAccess.Concrate;
 using MyProject.DataAccess.CQRS.Categories.Handlers.QueryHandlers;
+using MyProject.DataAccess.CQRS.Contacts;
+using MyProject.DataAccess.CQRS.Contacts.Commands.Request;
 using MyProject.DataAccess.CQRS.Contacts.Handlers;
 using MyProject.DataAccess.CQRS.Orders.Handlers;
 using MyProject.DataAccess.CQRS.Products.Handlers.QueryHandlers;
@@ -34,7 +38,11 @@ namespace MyProject.Bussines
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IAboutRepository, AboutRepository>();
-              
+
+            services.AddScoped<IValidator<ContactUsCommandRequest>, CreateContactCommandValidator>();
+
+            services.AddValidatorsFromAssemblyContaining<CreateContactCommandValidator>();
+
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -46,18 +54,7 @@ namespace MyProject.Bussines
             //GetAllCategoryQueryHandlerı refere eden dll dosyasını(assemblynin- Yani projemdeki DataAccesLayer) tarar
             services.AddMediatR(typeof(GetAllCategoryQueryHandler).Assembly);
 
-            /*
-           services.AddMediatR(Assembly.GetExecutingAssembly()); // o anda çalışmakta olan assembly'yi (derlemeyi) tarar ve MediatR'a ait handler'ları otomatik olarak IoC (Inversion of Control) container'a kaydeder.Mesela WepApi projemi ayağa kaldırdıysam WepApi projesi içindeki handlerları arar.
-           services.AddMediatR(typeof(GetAllCategoryQueryHandler).Assembly);
-           services.AddMediatR(typeof(GetAllProductQueryHandler).Assembly);
-           services.AddMediatR(typeof(GetProductByCategoryQueryHandler).Assembly);
-           services.AddMediatR(typeof(GetProductDetailQueryRequestHandler).Assembly);
-           services.AddMediatR(typeof(CreateOrderCommandRequestHandler).Assembly);
-           services.AddMediatR(typeof(GetNewProductsQueryHandler).Assembly);
-           services.AddMediatR(typeof(GetFilteredProductQueryHandler).Assembly);
-           services.AddMediatR(typeof(ContactUsCommandHandler).Assembly);
-
-           */
+          
 
 
 

@@ -1,29 +1,74 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using MyProject.Entity.Entities;
 using MyProject.WebUI.Models.UserModel;
+using System.ClientModel;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MyProject.WebUI.Controllers
 {
     public class LoginController : Controller
     {
 
-
+        private readonly SignInManager<AppUser> _signInManager; 
         private readonly UserManager<AppUser> _userManager;
-        
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public LoginController(UserManager<AppUser> userManager)
+        public LoginController(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, IHttpClientFactory httpClientFactory)
         {
+            _signInManager = signInManager;
             _userManager = userManager;
+            _httpClientFactory = httpClientFactory;
         }
 
-        
+        [HttpGet]
         public IActionResult Index()
         {
-
-            return Ok();
+            
+            return View();
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(UserLoginViewModel userLoginViewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(userLoginViewModel);
+
+            }
+            
+             
+                var result = await _signInManager.PasswordSignInAsync(userLoginViewModel.Email, userLoginViewModel.Password, userLoginViewModel.RememberMe, lockoutOnFailure: true);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                /*
+                HttpClient client = _httpClientFactory.CreateClient("ApiService1");
+
+                var response = await client.PostAsJsonAsync(client.BaseAddress + "/User/Login", userLoginViewModel);
+                */
+
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Geçersiz Giriş Denemesi.");
+                    return View(userLoginViewModel);
+                }
+
+      
+               
+
+           
+
+            
+        }
+
+
 
         [HttpGet]
         public IActionResult SignUp()
@@ -33,25 +78,46 @@ namespace MyProject.WebUI.Controllers
 
 
 
+
+
+
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> SignUp(UserRegisterViewModeL userRegisterViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userRegisterViewModel);
+               
 
-            AppUser user = new AppUser()
-            {
-                Email = userRegisterViewModel.Email,
-                NameSurname = userRegisterViewModel.NameSurname,
-                UserName = userRegisterViewModel.UserName,
-            };
-            var result = await _userManager.CreateAsync(user, userRegisterViewModel.Password);
-            if (result.Succeeded)
-            {
-                return Ok("User registered successfully!");
             }
-            else
-            {
-                return BadRequest(result.Errors);
+
+            
+                HttpClient client = _httpClientFactory.CreateClient("ApiService1");
+
+                var response = await client.PostAsJsonAsync(client.BaseAddress + "/User/Register", userRegisterViewModel);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    ViewBag.Success = "Kayıt işlemi başarılı. Giriş yapabilirsiniz.";
+                    return RedirectToAction("Index", "Login");
+                }
+                else
+                {
+                    string errorMessage= await response.Content.ReadAsStringAsync();
+                    ModelState.AddModelError(string.Empty, $"Kayıt işlemi başarısız: {errorMessage}");
             }
-        }
+            
+         
+           
+
+            
+            return View(userRegisterViewModel);
+
+
+
+
+
+        } 
     }
 }
