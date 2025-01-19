@@ -26,7 +26,7 @@ namespace MyProject.DataAccess.CQRS.AppUsers.Handlers.CommandHandlers
         public async Task<string> Handle(LoginUserCommandRequest request, CancellationToken cancellationToken)
         {
         
-            var result = await _signInManager.PasswordSignInAsync(request.EMail, request.Password, true, lockoutOnFailure: true);
+            var result = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, request.RememberMe, lockoutOnFailure: true);
             
             return result.Succeeded ? "Giriş Başarılı" : "Giriş Başarısız";
         }

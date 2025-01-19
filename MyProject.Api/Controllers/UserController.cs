@@ -27,7 +27,8 @@ namespace MyProject.Api.Controllers
 
                 if(response.Succeeded== true)
                 {
-                    return Ok(response.Message);
+                   
+                    return StatusCode(201, response.Message);
                 }
                 else
                 return BadRequest(response.Message);
@@ -48,6 +49,15 @@ namespace MyProject.Api.Controllers
             else
                 return BadRequest(response);
                 
+        }
+
+
+
+        [HttpPost("Logout")]
+        public async Task<IActionResult> LogoutUser()
+        {
+
+            return Ok();
         }
 
 
