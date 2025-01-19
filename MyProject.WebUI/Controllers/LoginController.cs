@@ -42,30 +42,35 @@ namespace MyProject.WebUI.Controllers
 
             }
             
-             
-                var result = await _signInManager.PasswordSignInAsync(userLoginViewModel.Email, userLoginViewModel.Password, userLoginViewModel.RememberMe, lockoutOnFailure: true);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                /*
+                
                 HttpClient client = _httpClientFactory.CreateClient("ApiService1");
 
                 var response = await client.PostAsJsonAsync(client.BaseAddress + "/User/Login", userLoginViewModel);
-                */
 
-                else
+            
+           
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = new AppUser
+                {
+                    UserName = userLoginViewModel.UserName
+                };
+
+                //kullanıcıyı oturum açmış olarak işaretleme
+                await _signInManager.SignInAsync(user, false);
+               
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            else
                 {
                     ModelState.AddModelError(string.Empty, "Geçersiz Giriş Denemesi.");
                     return View(userLoginViewModel);
                 }
 
-      
-               
-
-           
-
-            
+     
         }
 
 
