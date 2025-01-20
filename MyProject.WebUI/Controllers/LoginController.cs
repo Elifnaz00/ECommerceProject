@@ -123,6 +123,20 @@ namespace MyProject.WebUI.Controllers
 
 
 
-        } 
+        }
+
+
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            HttpClient client = _httpClientFactory.CreateClient("ApiService1");
+            var response = await client.PostAsync(client.BaseAddress + "/User/Logout", null);
+
+            if(response.IsSuccessStatusCode)
+            {
+                
+            }
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

@@ -137,15 +137,37 @@
                                             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index"
                                                title="Manage">Merhaba @User.Identity.Name!</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <form class="form-inline" asp-area="Identity" asp-page="/Login/Logout"
+                                        <li class="nav-item dropdown">
+                                            <form class="form-inline" asp-area="Identity" asp-controller="Login" asp-action="Logout"
                                                   asp-route-returnUrl="@Url.Page("/", new { area = "" })"
-                                                  method="post">
-                                                <button type="submit" style="background: transparent; border: 2px solid #800080; border-radius: 50%; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; box-shadow: 0 0 10px #800080, 0 0 20px #800080;">
+                                                  method="post" style="margin: 0; padding: 0;">
+                                                <button type="button" class="btn btn-primary dropdown-toggle"
+                                                        id="userDropdown" data-bs-toggle="dropdown"
+                                                        aria-expanded="false" style="
+                background: transparent;
+                border: 2px solid #800080;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                position: relative;
+                box-shadow: 0 0 10px #800080, 0 0 20px #800080;">
                                                     <i class="fa-solid fa-user" style="font-size: 1.5rem; color: #000;"></i>
                                                 </button>
+                                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                                    <li><a class="dropdown-item" href="#">Profil Bilgileri</a></li>
+                                                    <li><a class="dropdown-item" href="#">Sipariş Bilgileri</a></li>
+                                                   
+                                                    <li>
+                                                        <button type="submit" class="dropdown-item text-danger">Çıkış Yap</button>
+                                                    </li>
+                                                </ul>
                                             </form>
                                         </li>
+
                                       
                                     }
                                     else
