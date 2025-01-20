@@ -56,8 +56,9 @@ namespace MyProject.Api.Controllers
         [HttpPost("Logout")]
         public async Task<IActionResult> LogoutUser()
         {
-
-            return Ok();
+            await _mediator.Send(new LogoutUserCommandRequest());
+            return Ok(new { Message = "Başarıyla Çıkış Yapıldı" });
+            
         }
 
 
